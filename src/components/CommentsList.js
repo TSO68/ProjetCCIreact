@@ -16,7 +16,7 @@ class CommentsList extends Component {
         getComments().then(data => this.setState({ comments: data.comments}));
     }
 
-    componentWillMount(): void {
+    componentWillMount() {
         this._loadComments()
     }
 
@@ -35,8 +35,7 @@ class CommentsList extends Component {
 
 const styles = StyleSheet.create({
     main_container: {
-        flex: 1,
-        marginTop: 20
+        backgroundColor: '#2c2f33'
     },
 });
 
