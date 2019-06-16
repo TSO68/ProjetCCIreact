@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-import CommentView from "./CommentView";
+import CommentItem from "./CommentItem";
 import { getComments, deleteComment } from "../API/customApi";
 
 class CommentsList extends Component {
@@ -10,16 +10,11 @@ class CommentsList extends Component {
         this.state = {
             comments: [],
         };
-    }
+    };
 
     _loadComments() {
         getComments().then(data => this.setState({ comments: data.comments}));
-    }
-
-    /*
-    _displayComment = (idComment) => {
-        this.props.navigation.navigate("CommentItem", { idComment: idComment})
-    };*/
+    };
 
     _deleteComment = (idComment) => {
         deleteComment(idComment).then(this._loadComments());
@@ -36,9 +31,8 @@ class CommentsList extends Component {
                     data={this.state.comments}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => (
-                        <CommentView
+                        <CommentItem
                             comment={item}
-                            //displayCommentItem={this._displayComment}
                             deleteTheComment={this._deleteComment}
                         />
                     )}
