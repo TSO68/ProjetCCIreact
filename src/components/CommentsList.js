@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-import CommentItem from "./CommentItem";
+import CommentView from "./CommentView";
 import { getComments } from "../API/customApi";
 
 class CommentsList extends Component {
@@ -16,6 +16,10 @@ class CommentsList extends Component {
         getComments().then(data => this.setState({ comments: data.comments}));
     }
 
+    _displayComment = (idComment) => {
+        this.props.navigation.navigate("CommentItem", { idComment: idComment})
+    };
+
     componentWillMount() {
         this._loadComments()
     }
@@ -26,7 +30,12 @@ class CommentsList extends Component {
                 <FlatList
                     data={this.state.comments}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => <CommentItem comment={item} />}
+                    renderItem={({item}) => (
+                        <CommentView
+                            comment={item}
+                            displayCommentItem={this._displayComment}
+                        />
+                    )}
                 />
             </View>
         )
@@ -36,7 +45,7 @@ class CommentsList extends Component {
 const styles = StyleSheet.create({
     main_container: {
         backgroundColor: '#2c2f33'
-    },
+    }
 });
 
 export default CommentsList;

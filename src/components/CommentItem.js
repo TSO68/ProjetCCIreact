@@ -1,48 +1,36 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import React, {Component} from 'react'
+import { StyleSheet, View, Text } from 'react-native'
 
 class CommentItem extends Component {
-
     render() {
 
-        const comment = this.props.comment;
+        const idComment = this.props.navigation.getParam('idComment');
 
         return (
-            <TouchableOpacity style={styles.item_container}>
-                <Text style={styles.author}>
-                    {comment.author}
-                </Text>
-                <Text style={styles.text}>
-                    {comment.text}
-                </Text>
-            </TouchableOpacity>
+            <View style={styles.main_container}>
+                <View style={styles.comment_container}>
+                    <Text>Id commentaire : { idComment }</Text>
+                </View>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    item_container: {
+    main_container: {
+        flex: 1,
+        backgroundColor: '#2c2f33'
+    },
+    comment_container: {
+        flex: 1,
         borderWidth: 1,
         borderColor: '#d6d7da',
-        marginBottom: 15,
+        marginTop: 10,
+        marginBottom: 10,
         marginLeft: 5,
         marginRight: 5,
         backgroundColor: '#ffffff'
-    },
-    author: {
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginLeft: 5,
-        marginRight: 5,
-        paddingRight: 5
-    },
-    text: {
-        fontStyle: 'italic',
-        fontSize: 20,
-        marginLeft: 5,
-        marginRight: 5,
-        color: '#333333'
-    },
+    }
 });
 
 export default CommentItem;
