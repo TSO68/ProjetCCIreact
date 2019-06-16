@@ -15,7 +15,7 @@ const AppNavigator = createStackNavigator({
             },
         }
     },
-    CommentItem: {
+    /*CommentItem: {
         screen: CommentItem,
         navigationOptions: {
             title: "Commentaire",
@@ -26,7 +26,7 @@ const AppNavigator = createStackNavigator({
         }
     }
 },{
-        initialRouteName: "CommentsList"
+        initialRouteName: "CommentsList"*/
     });
 
 export default createAppContainer(AppNavigator);
