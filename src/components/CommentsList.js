@@ -17,7 +17,8 @@ class CommentsList extends Component {
     };
 
     _deleteComment = (idComment) => {
-        deleteComment(idComment).then(this._loadComments());
+        deleteComment(idComment).then(alert('Message supprimé'));
+        this._loadComments();
     };
 
     componentWillMount() {
