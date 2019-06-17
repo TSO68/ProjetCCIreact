@@ -64,6 +64,8 @@ const styles = StyleSheet.create({
         marginBottom: 3,
         marginLeft: 3,
         marginRight: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#99aab5'
     },
     delete_title: {
@@ -71,8 +73,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 3,
         marginRight: 3,
-        alignItems: 'center',
-        justifyContent: 'center',
         color: '#ffffff'
     },
     text: {
