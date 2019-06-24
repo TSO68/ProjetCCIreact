@@ -15,7 +15,7 @@ class CommentItem extends Component {
                     style={styles.title_container}
                 >
                     <Text style={styles.title} numberOfLines={1}>
-                        {comment.id}. {comment.author}
+                        {comment.author}
                     </Text>
                     <TouchableOpacity
                         style={styles.delete_container}
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     title: {
         flex: 1,
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 20,
         marginLeft: 5,
         marginRight: 5,
         paddingRight: 5
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontStyle: 'italic',
-        fontSize: 20,
+        fontSize: 18,
         marginLeft: 5,
         marginRight: 5,
         color: '#333333'
