@@ -2,11 +2,11 @@
 
 ## Fonctionnalités
 * Lecture des commentaires postées par l'application utilisateur
-* Suppression d'un commentaire
+* Ajout de commentaires
+* Suppression de commentaires
 
 ### Évolutions possibles
 * Améliorer le style
-* Plus de fonctionnalités ?
 
 ## API
 * [ProjetCCI-API](https://github.com/TSO68/ProjetCCI-API)
