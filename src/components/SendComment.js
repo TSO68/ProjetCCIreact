@@ -18,21 +18,27 @@ class SendComment extends Component {
             }),
             body: "author=" + author + "&text=" + comment
         })
-            .then(
+            .then((response) => response.text())
+            .then((responseText) => {
+                console.log("response", responseText);
+
                 Alert.alert(
-                    'Commentaire envoyé',
+                    'Merci',
                     'Le commentaire a été envoyé',
                     [
                         {text: 'OK'},
                     ],
                     {cancelable: false},
-                ),
+                );
+
                 this.setState({
                     author: "",
                     comment: ""
                 })
-            )
-            .catch(
+            })
+            .catch((error) => {
+                console.error(error);
+
                 Alert.alert(
                     'Erreur',
                     "Le commentaire n'a pas été envoyé",
@@ -41,8 +47,41 @@ class SendComment extends Component {
                     ],
                     {cancelable: false},
                 )
-            );
+            });
     }
+
+    _checkTextInput = () => {
+        if (this.state.author !== '' && this.state.comment !== '') {
+            this._sendComment();
+        } else if (this.state.author === '' && this.state.comment === '') {
+            Alert.alert(
+                'Erreur',
+                "Veuillez saisir un auteur et un commentaire",
+                [
+                    {text: 'OK'},
+                ],
+                {cancelable: false},
+            )
+        } else if (this.state.author === '') {
+            Alert.alert(
+                'Erreur',
+                "Veuillez saisir un auteur",
+                [
+                    {text: 'OK'},
+                ],
+                {cancelable: false},
+            )
+        } else if (this.state.comment === '') {
+            Alert.alert(
+                'Erreur',
+                "Veuillez saisir un commentaire",
+                [
+                    {text: 'OK'},
+                ],
+                {cancelable: false},
+            )
+        }
+    };
 
     render() {
         return (
@@ -65,7 +104,7 @@ class SendComment extends Component {
 
                 <TouchableOpacity
                     style={styles.send_container}
-                    onPress={() => this._sendComment()}
+                    onPress={() => this._checkTextInput()}
                 >
                     <Text style={styles.send_title}>
                         Envoyer commentaire
