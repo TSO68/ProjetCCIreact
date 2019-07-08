@@ -12,6 +12,10 @@ class CommentsList extends Component {
         };
     };
 
+    /**
+     * Get the comment list from the API
+     * @private
+     */
     _loadComments() {
         getComments().then(data => {
                 //console.log(data);
@@ -20,6 +24,11 @@ class CommentsList extends Component {
         );
     };
 
+    /**
+     * Delete a comment with his id
+     * @param idComment, the id of a comment
+     * @private
+     */
     _deleteComment = (idComment) => {
         deleteComment(idComment)
             .then(
@@ -35,9 +44,14 @@ class CommentsList extends Component {
         this._loadComments();
     };
 
+    /**
+     * Reload the comment list
+     * @private
+     */
     _refreshComments() {
         this._loadComments();
     };
+
 
     componentWillMount() {
         this._loadComments()

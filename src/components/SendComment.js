@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Text} from 'react-native';
+import { createComment } from "../API/customApi";
 
 class SendComment extends Component {
     state = {
@@ -7,53 +8,23 @@ class SendComment extends Component {
         comment: ""
     };
 
-    _sendComment () {
+    /**
+     * Check if text inputs are filled
+     * If yes, call the createComment function from API
+     * If not, alert user
+     * @private
+     */
+    _checkTextInput = () => {
         const author = this.state.author;
         const comment = this.state.comment;
 
-        fetch("https://projetcci.tk/api/v1/Api.php?apicall=createcomment", {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded',
-            }),
-            body: "author=" + author + "&text=" + comment
-        })
-            .then((response) => response.text())
-            .then((responseText) => {
-                console.log("response", responseText);
-
-                Alert.alert(
-                    'Merci',
-                    'Le commentaire a été envoyé',
-                    [
-                        {text: 'OK'},
-                    ],
-                    {cancelable: false},
-                );
-
-                this.setState({
-                    author: "",
-                    comment: ""
-                })
+        if (author !== '' && comment !== '') {
+            createComment(author, comment);
+            this.setState({
+                author: "",
+                comment: ""
             })
-            .catch((error) => {
-                console.error(error);
-
-                Alert.alert(
-                    'Erreur',
-                    "Le commentaire n'a pas été envoyé",
-                    [
-                        {text: 'OK'},
-                    ],
-                    {cancelable: false},
-                )
-            });
-    }
-
-    _checkTextInput = () => {
-        if (this.state.author !== '' && this.state.comment !== '') {
-            this._sendComment();
-        } else if (this.state.author === '' && this.state.comment === '') {
+        } else if (author === '' && comment === '') {
             Alert.alert(
                 'Erreur',
                 "Veuillez saisir un auteur et un commentaire",
@@ -62,7 +33,7 @@ class SendComment extends Component {
                 ],
                 {cancelable: false},
             )
-        } else if (this.state.author === '') {
+        } else if (author === '') {
             Alert.alert(
                 'Erreur',
                 "Veuillez saisir un auteur",
@@ -71,7 +42,7 @@ class SendComment extends Component {
                 ],
                 {cancelable: false},
             )
-        } else if (this.state.comment === '') {
+        } else if (comment === '') {
             Alert.alert(
                 'Erreur',
                 "Veuillez saisir un commentaire",
