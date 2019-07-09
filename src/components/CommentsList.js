@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, FlatList, Text, TouchableOpacity, Alert} from 'react-native';
 import CommentItem from "./CommentItem";
-import { getComments, deleteComment } from "../API/customApi";
+import {getComments, deleteComment, createComment} from "../API/customApi";
 
 class CommentsList extends Component {
 
@@ -52,10 +52,29 @@ class CommentsList extends Component {
         this._loadComments();
     };
 
-
+    /**
+     * Load comments on mounting
+     */
     componentWillMount() {
         this._loadComments()
     };
+
+    /**
+     * Get author and comment from SendComment component
+     */
+    componentDidMount() {
+        const { navigation } = this.props;
+
+        const author = navigation.getParam('author');
+        const comment = navigation.getParam('comment');
+
+        console.log("new:", author + " " + comment);
+
+        if (author && comment) {
+            createComment(author, comment)
+                .then(() => this._loadComments());
+        }
+    }
 
     render() {
         return (

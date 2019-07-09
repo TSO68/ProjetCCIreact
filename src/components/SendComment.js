@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, Text} from 'react-native';
-import { createComment } from "../API/customApi";
+import {StyleSheet, ScrollView, TextInput, TouchableOpacity, Text, Alert} from 'react-native';
 
 class SendComment extends Component {
     state = {
@@ -9,50 +8,44 @@ class SendComment extends Component {
     };
 
     /**
-     * Check if text inputs are filled
-     * If yes, call the createComment function from API
-     * If not, alert user
+     * Send author and comment to CommentsList component
      * @private
      */
-    _checkTextInput = () => {
+    _sendTheComment() {
         const author = this.state.author;
         const comment = this.state.comment;
 
-        if (author !== '' && comment !== '') {
-            createComment(author, comment);
+        if (author && comment) {
+            this.props.navigation.push('CommentsList',
+                {
+                    author: author,
+                    comment: comment,
+                }
+            );
+
             this.setState({
                 author: "",
                 comment: ""
             })
-        } else if (author === '' && comment === '') {
-            Alert.alert(
-                'Erreur',
-                "Veuillez saisir un auteur et un commentaire",
-                [
-                    {text: 'OK'},
-                ],
-                {cancelable: false},
-            )
-        } else if (author === '') {
-            Alert.alert(
-                'Erreur',
-                "Veuillez saisir un auteur",
-                [
-                    {text: 'OK'},
-                ],
-                {cancelable: false},
-            )
-        } else if (comment === '') {
-            Alert.alert(
-                'Erreur',
-                "Veuillez saisir un commentaire",
-                [
-                    {text: 'OK'},
-                ],
-                {cancelable: false},
-            )
+        } else {
+            this._errorMessage()
         }
-    };
+    }
+
+    /**
+     * Shows an error message if author or/and comment input is/are empty
+     * @private
+     */
+    _errorMessage() {
+        Alert.alert(
+            'Erreur',
+            'Veuillez saisir un auteur ou un commentaire',
+            [
+                {text: 'OK'},
+            ],
+            {cancelable: false},
+        )
+    }
 
     render() {
         return (
@@ -75,7 +68,7 @@ class SendComment extends Component {
 
                 <TouchableOpacity
                     style={styles.send_container}
-                    onPress={() => this._checkTextInput()}
+                    onPress={() => this._sendTheComment()}
                 >
                     <Text style={styles.send_title}>
                         Envoyer commentaire
